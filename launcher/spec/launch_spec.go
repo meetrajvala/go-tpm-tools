@@ -10,7 +10,6 @@ import (
 	"strings"
 
 	"cloud.google.com/go/compute/metadata"
-	"github.com/google/go-tpm-tools/launcher/internal/experiments"
 )
 
 // RestartPolicy is the enum for the container restart policy.
@@ -96,7 +95,6 @@ type LaunchSpec struct {
 	Hardened                   bool
 	MemoryMonitoringEnabled    bool
 	LogRedirect                LogRedirectLocation
-	Experiments                experiments.Experiments
 }
 
 // UnmarshalJSON unmarshals an instance attributes list in JSON format from the metadata

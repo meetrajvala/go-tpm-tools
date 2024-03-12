@@ -529,36 +529,6 @@ func (r *ContainerRunner) Run(ctx context.Context) error {
 		return fmt.Errorf("failed to fetch and write OIDC token: %v", err)
 	}
 
-	r.logger.Printf("EnableTestFeatureForImage is set to %v\n", r.launchSpec.Experiments.EnableTestFeatureForImage)
-	// create and start the TEE server behind the experiment
-	if r.launchSpec.Experiments.EnableOnDemandAttestation {
-		r.logger.Println("EnableOnDemandAttestation is enabled: initializing TEE server.")
-		teeServer, err := teeserver.New(ctx, path.Join(launcherfile.HostTmpPath, teeServerSocket), r.attestAgent, r.logger)
-		if err != nil {
-			return fmt.Errorf("failed to create the TEE server: %v", err)
-		}
-		go teeServer.Serve()
-		defer teeServer.Shutdown(ctx)
-	}
-
-	// start node-problem-detector.service to collect memory related metrics.
-	if r.launchSpec.MemoryMonitoringEnabled {
-		r.logger.Println("MemoryMonitoring is enabled by the VM operator")
-		s, err := systemctl.New()
-		if err != nil {
-			return fmt.Errorf("failed to create systemctl client: %v", err)
-		}
-		defer s.Close()
-
-		r.logger.Println("Starting a systemctl operation: systemctl start node-problem-detector.service")
-		if err := s.Start("node-problem-detector.service"); err != nil {
-			return fmt.Errorf("failed to start node-problem-detector.service: %v", err)
-		}
-		r.logger.Println("node-problem-detector.service successfully started.")
-	} else {
-		r.logger.Println("MemoryMonitoring is disabled by the VM operator")
-	}
-
 	var streamOpt cio.Opt
 	switch r.launchSpec.LogRedirect {
 	case spec.Nowhere:
