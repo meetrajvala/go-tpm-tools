@@ -30,10 +30,10 @@ import (
 	"github.com/google/go-tpm-tools/client"
 	"github.com/google/go-tpm-tools/launcher/agent"
 	"github.com/google/go-tpm-tools/launcher/internal/signaturediscovery"
-	"github.com/google/go-tpm-tools/launcher/internal/systemctl"
+	// "github.com/google/go-tpm-tools/launcher/internal/systemctl"
 	"github.com/google/go-tpm-tools/launcher/launcherfile"
 	"github.com/google/go-tpm-tools/launcher/spec"
-	"github.com/google/go-tpm-tools/launcher/teeserver"
+	// "github.com/google/go-tpm-tools/launcher/teeserver"
 	"github.com/google/go-tpm-tools/launcher/verifier"
 	"github.com/google/go-tpm-tools/launcher/verifier/rest"
 	v1 "github.com/opencontainers/image-spec/specs-go/v1"
@@ -285,11 +285,11 @@ func (r *ContainerRunner) measureCELEvents(ctx context.Context) error {
 	if err := r.measureContainerClaims(ctx); err != nil {
 		return fmt.Errorf("failed to measure container claims: %v", err)
 	}
-	if r.launchSpec.Experiments.EnableMeasureMemoryMonitor {
-		if err := r.measureMemoryMonitor(); err != nil {
-			return fmt.Errorf("failed to measure memory monitoring state: %v", err)
-		}
-	}
+	// if r.launchSpec.Experiments.EnableMeasureMemoryMonitor {
+	// 	if err := r.measureMemoryMonitor(); err != nil {
+	// 		return fmt.Errorf("failed to measure memory monitoring state: %v", err)
+	// 	}
+	// }
 
 	separator := cel.CosTlv{
 		EventType:    cel.LaunchSeparatorType,

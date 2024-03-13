@@ -114,16 +114,16 @@ func (a *agent) Attest(ctx context.Context, opts AttestAgentOpts) ([]byte, error
 		},
 	}
 
-	var signatures []oci.Signature
-	if a.launchSpec.Experiments.EnableSignedContainerCache {
-		signatures = a.sigsCache.get()
-	} else {
-		signatures = fetchContainerImageSignatures(ctx, a.sigsFetcher, a.launchSpec.SignedImageRepos, a.logger)
-	}
-	if len(signatures) > 0 {
-		req.ContainerImageSignatures = signatures
-		a.logger.Printf("Found container image signatures: %v\n", signatures)
-	}
+	// var signatures []oci.Signature
+	// if a.launchSpec.Experiments.EnableSignedContainerCache {
+	// 	signatures = a.sigsCache.get()
+	// } else {
+	// 	signatures = fetchContainerImageSignatures(ctx, a.sigsFetcher, a.launchSpec.SignedImageRepos, a.logger)
+	// }
+	// if len(signatures) > 0 {
+	// 	req.ContainerImageSignatures = signatures
+	// 	a.logger.Printf("Found container image signatures: %v\n", signatures)
+	// }
 
 	resp, err := a.client.VerifyAttestation(ctx, req)
 	if err != nil {
@@ -138,11 +138,11 @@ func (a *agent) Attest(ctx context.Context, opts AttestAgentOpts) ([]byte, error
 // Refresh refreshes the internal state of the attestation agent.
 // It will reset the container image signatures for now.
 func (a *agent) Refresh(ctx context.Context) error {
-	if a.launchSpec.Experiments.EnableSignedContainerCache {
-		signatures := fetchContainerImageSignatures(ctx, a.sigsFetcher, a.launchSpec.SignedImageRepos, a.logger)
-		a.sigsCache.set(signatures)
-		a.logger.Printf("Refreshed container image signature cache: %v\n", signatures)
-	}
+	// if a.launchSpec.Experiments.EnableSignedContainerCache {
+	// 	signatures := fetchContainerImageSignatures(ctx, a.sigsFetcher, a.launchSpec.SignedImageRepos, a.logger)
+	// 	a.sigsCache.set(signatures)
+	// 	a.logger.Printf("Refreshed container image signature cache: %v\n", signatures)
+	// }
 	return nil
 }
 

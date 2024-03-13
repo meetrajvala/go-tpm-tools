@@ -1,0 +1,4 @@
+#cloud-config
+
+runcmd:
+  - sudo cos-extensions install gpu -- --version=535.104.05

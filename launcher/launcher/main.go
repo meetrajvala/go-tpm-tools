@@ -66,12 +66,12 @@ func main() {
 
 	logger.Println(welcomeMessage)
 
-	if err := verifyFsAndMount(); err != nil {
-		logger.Printf("failed to verify filesystem and mounts: %v\n", err)
-		exitCode = rebootRC
-		logger.Printf("%s, exit code: %d (%s)\n", exitMessage, exitCode, rcMessage[exitCode])
-		return
-	}
+	// if err := verifyFsAndMount(); err != nil {
+	// 	logger.Printf("failed to verify filesystem and mounts: %v\n", err)
+	// 	exitCode = rebootRC
+	// 	logger.Printf("%s, exit code: %d (%s)\n", exitMessage, exitCode, rcMessage[exitCode])
+	// 	return
+	// }
 
 	// Get RestartPolicy and IsHardened from spec
 	mdsClient = metadata.NewClient(nil)

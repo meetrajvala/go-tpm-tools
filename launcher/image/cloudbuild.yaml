@@ -1,10 +1,9 @@
 substitutions:
-  '_BASE_IMAGE': ''
-  '_OUTPUT_IMAGE_NAME': ''
+  '_BASE_IMAGE': 'cos-109-17800-147-33'
+  '_OUTPUT_IMAGE_NAME': 'acos-mhv2-lts'
   '_OUTPUT_IMAGE_FAMILY': ''
   '_BASE_IMAGE_PROJECT': 'cos-cloud'
-  '_IMAGE_ENV': ''
-  '_BUCKET_NAME': '${PROJECT_ID}_cloudbuild'
+  '_IMAGE_ENV': 'debug'
   '_CS_LICENSE': ''
 
 steps:
@@ -18,10 +17,13 @@ steps:
   - name: 'gcr.io/cos-cloud/cos-customizer'
     args: ['start-image-build',
            '-build-context=launcher/image',
-           '-gcs-bucket=${_BUCKET_NAME}',
+           '-gcs-bucket=${PROJECT_ID}_cloudbuild',
            '-gcs-workdir=customizer-${BUILD_ID}',
            '-image-name=${_BASE_IMAGE}',
            '-image-project=${_BASE_IMAGE_PROJECT}']
+  - name: 'gcr.io/cos-cloud/cos-customizer'
+    args: ['install-gpu',
+           '-version=535.104.05']
   - name: 'gcr.io/cos-cloud/cos-customizer'
     args: ['run-script',
            '-script=preload.sh',
@@ -41,12 +43,13 @@ steps:
            '-licenses=${_CS_LICENSE}',
            '-licenses=projects/confidential-space-images/global/licenses/ek-certificate-license',
            '-zone=us-central1-a',
+           '-gpu-type=nvidia-tesla-t4',
            '-project=${PROJECT_ID}']
 
 timeout: '3000s'
 
-options:
-  logging: CLOUD_LOGGING_ONLY
-  dynamic_substitutions: true
-  pool:
-    name: 'projects/confidential-space-images-dev/locations/us-west1/workerPools/cs-image-build-vpc'
+# options:
+#   logging: CLOUD_LOGGING_ONLY
+#   dynamic_substitutions: true
+#   pool:
+#     name: 'projects/confidential-space-images-dev/locations/us-west1/workerPools/cs-image-build-vpc'
