@@ -64,7 +64,7 @@ steps:
            ./launcher/image/bc-guest/bc_network_rebind.sh \
            /workspace/oem-install/confidential_space/
         cp ./launcher/image/nodeproblemdetector/* /workspace/oem-install/confidential_space/nodeproblemdetector/
-        cp ./launcher/image/bc-guest/wsd/* /workspace/oem-install/wsd/
+        cp ./launcher/image/wsd/* /workspace/oem-install/wsd/
         if [ -f /workspace/wsd_image/image.tar ]; then
             cp /workspace/wsd_image/image.tar /workspace/oem-install/wsd/image.tar
         fi
