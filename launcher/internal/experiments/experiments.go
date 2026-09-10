@@ -17,6 +17,7 @@ type Experiments struct {
 	EnableAttestationEvidence    bool
 	EnableB200DriverInstallation bool
 	EnableH100DriverInstallation bool
+	ConfidentialG4Support        bool
 	EnableKeyManager             bool
 	EnableGpuGcaSupport          bool
 	EnableGpuItaSupport          bool

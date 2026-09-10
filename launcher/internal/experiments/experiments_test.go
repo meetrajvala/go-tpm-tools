@@ -32,6 +32,12 @@ func TestExperiments(t *testing.T) {
 			},
 		},
 		{
+			input: "{\"ConfidentialG4Support\":true}",
+			expectedExps: Experiments{
+				ConfidentialG4Support: true,
+			},
+		},
+		{
 			input: "{\"EnableTestFeatureForImage\":true,\"EnableSignedContainerImage\":true,\"EnableItaVerifier\":true,\"FloatFeature\":-5.6,\"OtherTestFeatureForImage\":false,\"EnableHostAttestation\":true}",
 			expectedExps: Experiments{
 				EnableTestFeatureForImage: true,
