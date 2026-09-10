@@ -7,7 +7,7 @@ import (
 
 	"github.com/google/go-sev-guest/proto/sevsnp"
 	sv "github.com/google/go-sev-guest/verify"
-	"github.com/google/go-tdx-guest/proto/tdx"
+	tdxpb "github.com/google/go-tdx-guest/proto/tdx"
 	tv "github.com/google/go-tdx-guest/verify"
 	pb "github.com/google/go-tpm-tools/proto/attest"
 	"github.com/google/go-tpm-tools/server"
@@ -98,7 +98,7 @@ func parseTEEAttestation(attestation *pb.Attestation, tech pb.GCEConfidentialTec
 		}
 		return &pb.MachineState{
 			TeeAttestation: &pb.MachineState_TdxAttestation{
-				TdxAttestation: proto.Clone(tee.TdxAttestation).(*tdx.QuoteV4),
+				TdxAttestation: proto.Clone(tee.TdxAttestation).(*tdxpb.QuoteV4),
 			}}, nil
 	default:
 		return &pb.MachineState{}, nil
